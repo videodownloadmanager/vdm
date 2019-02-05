@@ -1,0 +1,70 @@
+apply plugin: 'application'
+
+applicationName = "Video Download Manager"
+version '1.1.0'
+description 'Free, Cross-platform video download manager'
+sourceCompatibility = 11
+targetCompatibility = 11
+// Define the main class for the application
+mainClassName = 'vdm.Main'
+
+def platform
+if (operatingSystem.isWindows()) {
+    platform = 'win'
+} else if (operatingSystem.isLinux()) {
+    platform = 'linux'
+} else if (operatingSystem.isMacOsX()) {
+    platform = 'mac'
+}
+
+configurations {
+    javafxCompile
+}
+
+dependencies {
+    // Use JUnit test framework
+    testCompile 'junit:junit:4.12'
+    
+    compile 'org.controlsfx:controlsfx:9.0.0'
+    compile 'com.google.code.gson:gson:2.8.5'
+    compile 'org.hildan.fxgson:fx-gson:3.1.2'
+    compile 'org.jsoup:jsoup:1.11.3'
+    compile 'com.dorkbox:SystemTray:3.17'
+    runtime 'org.slf4j:slf4j-nop:1.7.25'
+
+    javafxCompile "org.openjfx:javafx-base:11.0.2:${platform}"
+    javafxCompile "org.openjfx:javafx-graphics:11.0.2:${platform}"
+    javafxCompile "org.openjfx:javafx-controls:11.0.2:${platform}"
+    javafxCompile "org.openjfx:javafx-fxml:11.0.2:${platform}"
+
+    compile configurations.javafxCompile
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': applicationName,
+                   'Implementation-Version': version,
+                   'Implementation-Vendor': 'elzoughby',
+                   'JavaFX-Version': '11.0.2',
+                   'Main-Class': mainClassName,
+                   'Class-Path': configurations.runtimeClasspath.files.collect { it.getName() }.join(' ')
+    }
+}
+
+run {
+    jvmArgs += [
+        '--module-path', classpath.asPath,
+        '--add-modules', 'javafx.controls',
+        '--add-exports', 'javafx.base/com.sun.javafx.runtime=controlsfx',
+        '--add-exports', 'javafx.graphics/com.sun.javafx.css=controlsfx',
+        '--add-exports', 'javafx.base/com.sun.javafx.reflect=ALL-UNNAMED',
+        '--add-exports', 'javafx.base/com.sun.javafx.beans=ALL-UNNAMED',
+        '--add-exports', 'javafx.graphics/com.sun.javafx.util=ALL-UNNAMED'
+    ]
+}
+
+task copyDependencies(type: Copy) {
+    from configurations.runtime - configurations.javafxCompile
+    from jar
+    into "${buildDir}/libraries"
+}

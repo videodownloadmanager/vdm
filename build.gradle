@@ -1,0 +1,30 @@
+import org.gradle.internal.os.OperatingSystem
+
+apply plugin: 'base'
+
+ext {
+    operatingSystem = OperatingSystem.current()
+}
+
+wrapper {
+    description 'Setup the Gradle wrapper'
+    gradleVersion = '5.1.1'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
+}
+
+allprojects {
+    group 'io.github.vdm'
+
+    repositories {
+		// Use jcenter for resolving your dependencies.
+        jcenter()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    [compileJava, compileTestJava].each { task ->
+        task.options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation" << "-Werror"
+    }
+}

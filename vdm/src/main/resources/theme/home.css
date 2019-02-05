@@ -1,0 +1,142 @@
+/* ========== SplitPane style ========== */
+
+.split-pane:vertical > .split-pane-divider {
+    -fx-background-color: white;
+}
+
+
+/* ======== Logs ListView style ======== */
+
+.list-view {
+    -fx-background-color: white;
+}
+
+.list-view .list-cell {
+    -fx-background-color: white;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: #e9e9e9;
+    -fx-text-fill: black;
+}
+
+.list-view:focused .list-cell:selected {
+    -fx-background-color: #bae6f5;
+}
+
+.list-view .error-list-cell, .list-view .error-list-cell:selected {
+    -fx-text-fill: crimson;
+}
+
+.list-view .warning-list-cell, .list-view .warning-list-cell:selected {
+    -fx-text-fill: chocolate;
+}
+
+
+/* ======= Items TableView style ======= */
+
+.table-view {
+    -fx-selection-bar-non-focused: #e9e9e9;
+    -fx-selection-bar: #bae6f5;
+}
+
+.table-row-cell:filled:selected {
+    -fx-background-insets: 0;
+}
+
+.table-row-cell:odd:filled:selected {
+    -fx-background-insets: 0;
+}
+
+.table-view .column-header, .table-view .column-header .filler, .table-view .column-header-background .filler {
+    -fx-background-color: #d7d7d7;
+    -fx-border-color: #cdcdcd;
+    -fx-border-style: dotted;
+}
+
+
+/* ======= Progress column style ======= */
+
+.progress-bar > .bar{
+    -fx-background-color: #f7db00;
+    -fx-background-insets: 1 1 2 1;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+}
+
+.progress-bar > .track{
+    -fx-background-color: white;
+    -fx-border-color: #ebebeb;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+    -fx-background-insets: -1 -1 0 -1;
+    -fx-border-insets: -1 -1 0 -1;
+}
+
+.progress-label {
+    -fx-text-fill: black;
+    -fx-font-size: 9pt;
+}
+
+
+/* ========== Scrollbar style ========== */
+
+.scroll-bar:vertical {
+    -fx-background-color: #f0f0f0;
+    -fx-background-insets: 0;
+    -fx-padding: 0.5;
+}
+
+.scroll-bar:horizontal {
+    -fx-background-color: #f0f0f0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical .track, .scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+    -fx-background-radius: 2em;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: derive(black,110%);
+    -fx-background-insets: -0.5, 0, 0;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: derive(black,110%);
+    -fx-background-insets: 0.75, 0, 0;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:horizontal .increment-button, .scroll-bar:horizontal.decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 0 0 10 0;
+}
+
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical.decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: "";
+    -fx-padding: 0;
+}
+
+
+/* =========== Context menu =========== */
+
+.context-menu .accelerator-text {
+    -fx-text-fill: #878787;
+    -fx-font-size: 8.5pt;
+}
+
+.menu-item {
+    -fx-selection-bar: #bae6f5;
+}

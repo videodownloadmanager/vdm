@@ -1,0 +1,86 @@
+.button, .toggle-button {
+    -fx-background-color: white;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 25px,25px;
+}
+
+.button:hover, .toggle-button:hover, .toggle-button:selected:hover {
+    -fx-background-color: #ebebeb;
+}
+
+.button:armed, .toggle-button:selected {
+    -fx-background-color: #dcdcdc;
+}
+
+.button:focused, .toggle-button:focused {
+    -fx-border-color: #e6e6e6;
+    -fx-border-style: dashed;
+    -fx-border-radius: 3px;
+    -fx-border-width: 1px;
+
+}
+
+
+/* ============ Home window style ============ */
+
+.button-add {
+    -fx-background-image:  url(imgs/add.png) ;
+}
+
+.button-start {
+    -fx-background-image:  url(imgs/start.png) ;
+}
+
+.button-pause {
+    -fx-background-image:  url(imgs/pause.png) ;
+    -fx-background-size: 27px,27px ;
+}
+
+.button-remove {
+    -fx-background-image:  url(imgs/delete.png) ;
+    -fx-background-size: 22px,22px ;
+}
+
+.button-info {
+    -fx-background-image:  url(imgs/details.png) ;
+    -fx-background-size: 22px,22px ;
+}
+
+.button-queue {
+    -fx-background-image:  url(imgs/queue.png) ;
+    -fx-background-size: 23px,23px ;
+}
+
+.button-setting {
+    -fx-background-image:  url(imgs/setting.png) ;
+    -fx-background-size: 22px,22px ;
+}
+
+.button-about {
+    -fx-background-image:  url(imgs/about.png) ;
+    -fx-background-size: 27px,27px ;
+}
+
+.button-log {
+    -fx-background-image:  url(imgs/log.png) ;
+    -fx-background-size: 21px,21px ;
+}
+
+
+/* ========= New download window style ========= */
+
+.new-button-start {
+    -fx-background-image:  url(imgs/start.png) ;
+}
+
+.new-button-queue {
+    -fx-background-image:  url(imgs/schedule.png) ;
+    -fx-background-size: 18px,18px ;
+}
+
+.new-button-cancel {
+    -fx-background-image:  url(imgs/cancel.png) ;
+    -fx-background-size: 23px,23px ;
+}
+

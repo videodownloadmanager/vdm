@@ -1,0 +1,178 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+ext {
+    publishedVersion = project.version
+    bundlerScript = file('scripts/build-package.sh')
+    vdmLibraryPath = file("${rootProject.project('vdm').buildDir}/libraries")
+    mainJar = project(':vdm').jar.outputs.files[0].name
+    bundlePath = file("${buildDir}/bundle")
+    fileAssociations = file("${buildDir}/resources/main/file-associations.properties")
+    extraBundlerArguments = []
+    if (operatingSystem.isMacOsX()) {
+        packageType = 'pkg'
+        appIcon = file('icons/mac/icon.icns')
+        sessionIcon = file('icons/mac/file.icns')
+        extraBundlerArguments = ['--mac-sign']
+    } else if (operatingSystem.isLinux()) {
+        packageType = 'deb'
+        appIcon = file('icons/icon.png')
+        sessionIcon = file('icons/file.png')
+    } else if (operatingSystem.isWindows()) {
+        appIcon = file('icons/windows/icon.ico')
+        sessionIcon = file('icons/windows/file.ico')
+        bundlerScript = file('scripts/build-package.bat')
+        generatedInnoSetupFile = file("${buildDir}/resources/main/vdm.iss")
+        windowsExecutable = file("${bundlePath}/VDM/vdm.exe")
+        bundleContent = file("${bundlePath}/VDM/*")
+        // Locations for the DLL workaround (see https://github.com/Santulator/Santulator/issues/5)
+        windowsDllDirectory = file('C:\\Windows\\System32')
+        windowsDllMSVCP140 = file("${windowsDllDirectory}/MSVCP140.dll")
+        windowsDllVCRUNTIME140 = file("${windowsDllDirectory}/VCRUNTIME140.dll")
+    }
+}
+
+task recreateIconMacApp(type: Exec) {
+    description 'Regenerate the Mac application icon'
+    commandLine 'sh', file('scripts/mac-icon.sh'), file('icons/icon.png'), file('icons/mac'), 'icon'
+}
+
+task recreateIconMacSession(type: Exec) {
+    description 'Regenerate the Mac file icon'
+    commandLine 'sh', file('scripts/mac-icon.sh'), file('icons/file.png'), file('icons/mac'), 'file'
+}
+
+task recreateIconWindowsApp(type: Exec) {
+    description 'Regenerate the Windows application icon'
+    commandLine 'sh', file('scripts/windows-icon.sh'), file('icons/icon.png'), file('icons/windows'), 'icon'
+}
+
+task recreateIconWindowsSession(type: Exec) {
+    description 'Regenerate the Windows file icon'
+    commandLine 'sh', file('scripts/windows-icon.sh'), file('icons/icon.png'), file('icons/windows'), 'file'
+}
+
+task recreateIcons(dependsOn: [recreateIconMacApp, recreateIconMacSession, recreateIconWindowsApp, recreateIconWindowsSession]) {
+    description 'Regenerate all the application bundle icons'
+}
+
+processResources {
+    filesMatching('file-associations.properties') {
+        filter ReplaceTokens, tokens: [
+            'santulator.session.icon': sessionIcon.toString()
+        ]
+    }
+}
+
+task checkBundlingEnvironment {
+    description 'Check the environment for building the installable bundle'
+    doLast {
+        if (project.hasProperty('javafxJmodsPath')) {
+            def modsPath = file("${javafxJmodsPath}")
+
+            if (modsPath.exists() && modsPath.isDirectory()) {
+                if (!modsPath.list({ d, f -> f ==~ /.*.jmod/ } as FilenameFilter)) {
+                    throw new GradleException("JavaFX modules directory '$modsPath' does not contain any '*.jmod' files")
+                }
+            } else {
+                throw new GradleException("JavaFX modules directory '$modsPath' not found")
+            }
+        } else {
+            throw new GradleException("Use -PjavafxJmodsPath=... to specify the directory containing the OpenJFX 11 JMod files")
+        }
+        if (operatingSystem.isWindows()) {
+            def javaHome = System.env.JAVA_HOME
+
+            if (javaHome) {
+                def javaExecutable = file("${javaHome}/bin/java.exe")
+                def packagerFile = file("${javaHome}/bin/jpackager.exe")
+                def jmodFile = file("${javaHome}/jmods/jdk.packager.jar")
+
+                if (!javaExecutable.exists()) {
+                    throw new GradleException("Unable to find Java executable '${javaExecutable}'")
+                }
+                if (!packagerFile.exists()) {
+                    throw new GradleException("Unable to find Java packager executable at '${packagerFile}'")
+                }
+                if (!jmodFile.exists()) {
+                    throw new GradleException("Unable to find Java packager module at '${jmodFile}'")
+                }
+                // Check existence of files for DLL workaround (see https://github.com/Santulator/Santulator/issues/5)
+                if (!windowsDllMSVCP140.exists() || !windowsDllVCRUNTIME140.exists()) {
+                    throw new GradleException("Unable to find '${windowsDllMSVCP140}' and '${windowsDllVCRUNTIME140}' (see https://github.com/Santulator/Santulator/issues/5)")
+                }
+            } else {
+                throw new GradleException("JAVA_HOME must be set")
+            }
+        } else {
+            if (project.hasProperty('javaPackagerPath')) {
+                def packagerFile = file("${javaPackagerPath}/jpackager")
+
+                if (!packagerFile.exists() || !packagerFile.isFile()) {
+                    throw new GradleException("The Java Packager '$packagerFile' is missing")
+                }
+            } else {
+                throw new GradleException("Use -PjavaPackagerPath=... to specify the directory containing the Java Packager")
+            }
+        }
+    }
+}
+
+task createBundle(type: Exec, dependsOn: [processResources, checkBundlingEnvironment]) {
+    description 'Build the installable bundle'
+    if (operatingSystem.isWindows()) {
+        commandLine 'cmd', '/c',
+            bundlerScript,
+            "${-> javafxJmodsPath}",
+            vdmLibraryPath,
+            bundlePath,
+            mainJar,
+            publishedVersion,
+            appIcon
+    } else {
+        commandLine = ['sh',
+            bundlerScript,
+           "${-> file("${javaPackagerPath}/jpackager")}",
+            packageType,
+           "${-> file("${javafxJmodsPath}")}",
+            vdmLibraryPath,
+            bundlePath,
+            mainJar,
+            publishedVersion,
+            fileAssociations,
+            appIcon,
+            *extraBundlerArguments]
+    }
+}
+
+createBundle.dependsOn ':vdm:copyDependencies'
+
+if (operatingSystem.isWindows()) {
+    processResources {
+        filesMatching('vdm.iss') {
+            filter ReplaceTokens, tokens: [
+                'bundle.version': publishedVersion,
+                'executable.location': windowsExecutable.toString(),
+                'bundle.content': bundleContent.toString()
+            ]
+        }
+    }
+
+    task completeInnoSetup(dependsOn: processResources) {
+        doLast {
+            copy {
+                from 'resources/icons/windows'
+                into "${bundlePath}/VDM"
+                include 'file.ico'
+            }
+            // Copy files for DLL workaround (see https://github.com/Santulator/Santulator/issues/5)
+            copy {
+                from windowsDllMSVCP140
+                from windowsDllVCRUNTIME140
+                into "${bundlePath}/VDM"
+            }
+            println("Inno Setup file: ${generatedInnoSetupFile}")
+        }
+    }
+
+    createBundle.finalizedBy completeInnoSetup
+}

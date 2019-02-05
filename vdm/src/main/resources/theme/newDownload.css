@@ -1,0 +1,422 @@
+/* ========== ScrollPane style ========== */
+
+.scroll-pane {
+    -fx-background-color: white;
+    -fx-border-color: #d7d7d7;
+    -fx-border-width: 1px;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: #f0f0f0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-background-radius: 2em;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: derive(black,110%);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar .increment-button, .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 0 0 10 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: "";
+    -fx-padding: 0;
+}
+
+
+/* ========== TitledPane style ========== */
+
+.titled-pane {
+    -fx-background-color: white;
+    -fx-border-color: #f5f5f5;
+    -fx-border-width: 1px;
+}
+
+.titled-pane > .title {
+    -fx-background-color: #f5f5f5;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-padding: 4;
+}
+
+.titled-pane:focused > .title > .arrow-button .arrow {
+    -fx-background-color: darkturquoise;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.titled-pane > *.content {
+    -fx-background-color: white;
+    -fx-border-width: 0;
+}
+
+
+.artifacts-titled-pane {
+    -fx-background-color: white;
+    -fx-border-color: rgba(96, 167, 235, 0.16);
+    -fx-border-width: 1px;
+}
+
+.artifacts-titled-pane > .title {
+    -fx-background-color: rgba(96, 167, 235, 0.16);
+    -fx-background-radius: 0px;
+    -fx-padding: 4;
+}
+
+.artifacts-titled-pane:focused > .title > .arrow-button .arrow {
+    -fx-background-color: darkturquoise;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.artifacts-titled-pane > *.content {
+    -fx-background-color: white;
+    -fx-border-width: 0px;
+}
+
+.quality-titled-pane {
+    -fx-background-color: white;
+    -fx-border-color: rgba(105, 235, 35, 0.16);
+    -fx-border-width: 1px;
+}
+
+.quality-titled-pane > .title {
+    -fx-background-color: rgba(105, 235, 35, 0.16);
+    -fx-background-radius: 0px;
+    -fx-padding: 4;
+}
+
+.quality-titled-pane:focused > .title > .arrow-button .arrow {
+    -fx-background-color: limegreen;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.quality-titled-pane > *.content {
+    -fx-background-color: white;
+    -fx-border-width: 0px;
+}
+
+.website-titled-pane {
+    -fx-background-color: white;
+    -fx-border-color: rgba(233, 235, 0, 0.2);
+    -fx-border-width: 1px;
+}
+
+.website-titled-pane > .title {
+    -fx-background-color: rgba(233, 235, 0, 0.2);
+    -fx-background-radius: 0px;
+    -fx-padding: 4;
+}
+
+.website-titled-pane:focused > .title > .arrow-button .arrow {
+    -fx-background-color: #e6c000;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.website-titled-pane > *.content {
+    -fx-background-color: white;
+    -fx-border-width: 0px;
+}
+
+.playlist-titled-pane {
+    -fx-background-color: white;
+    -fx-border-color: rgba(235, 67, 84, 0.13);
+    -fx-border-width: 1px;
+}
+
+.playlist-titled-pane > .title {
+    -fx-background-color: rgba(235, 67, 84, 0.13);
+    -fx-background-radius: 0px;
+    -fx-padding: 4;
+}
+
+.playlist-titled-pane:focused > .title > .arrow-button .arrow {
+    -fx-background-color: crimson;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.playlist-titled-pane > *.content {
+    -fx-background-color: white;
+    -fx-border-width: 0px;
+}
+
+.authentication-titled-pane {
+    -fx-background-color: white;
+    -fx-border-color: rgba(133, 3, 255, 0.15);
+    -fx-border-width: 1px;
+}
+
+.authentication-titled-pane > .title {
+    -fx-background-color: rgba(133, 3, 255, 0.15);
+    -fx-background-radius: 0px;
+    -fx-padding: 4;
+}
+
+.authentication-titled-pane:focused > .title > .arrow-button .arrow {
+    -fx-background-color: darkorchid;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.authentication-titled-pane > *.content {
+    -fx-background-color: white;
+    -fx-border-width: 0px;
+}
+
+.other-titled-pane {
+    -fx-background-color: white;
+    -fx-border-color: rgba(96, 167, 235, 0.16);
+    -fx-border-width: 1px;
+}
+
+.other-titled-pane > .title {
+    -fx-background-color: rgba(96, 167, 235, 0.16);
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-padding: 4;
+}
+
+.other-titled-pane:focused > .title > .arrow-button .arrow {
+    -fx-background-color: darkturquoise;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.other-titled-pane > *.content {
+    -fx-background-color: white;
+    -fx-border-width: 0;
+}
+
+
+/* ========== TextField style ========== */
+
+.text-field {
+    -fx-background-color: #cdcdcd, white;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background-radius: 0;
+}
+
+.text-field:focused {
+    -fx-background-color: darkturquoise, white;
+}
+
+.text-field:disabled {
+    -fx-background-color: #dcdcdc, #f8f8f8;
+}
+
+
+.text-field-error {
+    -fx-background-color: crimson, white;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background-radius: 0;
+}
+
+.text-field-error:focused {
+    -fx-background-color: crimson, white;
+}
+
+.text-field-error:disabled {
+    -fx-background-color: #dcdcdc, #f8f8f8;
+}
+
+
+.text-input:readonly {
+    -fx-text-fill: gray;
+}
+
+.text-input:readonly:focused {
+    -fx-background-color: #a5a5a5, white;
+}
+
+
+/* =========== Button style =========== */
+
+.button {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 0;
+    -fx-border-width: 1px;
+}
+
+.button:hover {
+    -fx-background-color: #f5f5f5;
+}
+
+.button:armed {
+    -fx-background-color: #fafafa;
+}
+
+.button:focused {
+    -fx-border-color: darkturquoise;
+}
+
+
+/* =========== Checkbox style =========== */
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-background-radius: 0;
+    -fx-border-color: #d7d7d7;
+    -fx-border-width: 1px;
+    -fx-border-radius:0;
+}
+
+.check-box:hover .box {
+    -fx-background-color: #fafafa;
+}
+
+.check-box:armed .box {
+    -fx-background-color: white;
+}
+
+.check-box:focused .box {
+    -fx-border-color: darkturquoise;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #28a3f4;
+}
+
+
+/* =========== Checkbox style =========== */
+
+.choice-box {
+    -fx-background-color: #d7d7d7, #f5f5f5;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background-radius: 0;
+    -fx-mark-color: #878787;
+}
+
+.choice-box:hover {
+    -fx-background-color: #e1e1e1, #f0f0f0;
+}
+
+.choice-box:focused {
+    -fx-background-color: darkturquoise, #f5f5f5;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: #ffffff;
+    -fx-border-color: darkturquoise;
+    -fx-border-width: 1px;
+    -fx-selection-bar: #bae6f5;
+}
+
+
+/* ========== RadioButton style ========== */
+
+.radio-button .radio {
+    -fx-background-color: white;
+    -fx-background-radius: 130px;
+    -fx-border-color: #d7d7d7;
+    -fx-border-radius: 130px;
+    -fx-border-width: 1px;
+}
+
+.radio-button:hover .radio {
+    -fx-background-color: #fafafa;
+}
+
+.radio-button:armed .radio {
+    -fx-background-color: white;
+}
+
+.radio-button:focused .radio {
+    -fx-border-color: darkturquoise;
+}
+
+.radio-button .dot {
+    -fx-background-insets: 0;
+    -fx-mark-color: #28a3f4;
+}
+
+
+/* ============ Spinner style ============ */
+
+.spinner {
+    -fx-border-color: #d7d7d7;
+    -fx-border-radius: 0;
+    -fx-border-width: 1px;
+    -fx-mark-color: #878787;
+}
+
+.spinner:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-color: darkturquoise;
+}
+
+.spinner .text-field {
+    -fx-border-color: white;
+    -fx-border-radius: 0;
+    -fx-border-width: 1px;
+}
+
+.spinner .increment-arrow-button, .spinner .decrement-arrow-button {
+    -fx-background-color: #f5f5f5;
+    -fx-background-radius: 0;
+}
+
+.spinner .increment-arrow-button:hover, .spinner .decrement-arrow-button:hover {
+    -fx-background-color: #ebebeb;
+}
+
+.spinner .increment-arrow-button:pressed, .spinner .decrement-arrow-button:pressed {
+    -fx-background-color: #e1e1e1;
+}
+
+.spinner-error {
+    -fx-border-color: crimson;
+    -fx-border-radius: 0;
+    -fx-border-width: 1px;
+    -fx-mark-color: #878787;
+}
+
+.spinner-error:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-color: crimson;
+}
+
+
+/* ============ ProgressIndicator style ============ */
+
+.progress-indicator {
+    -fx-progress-color: darkturquoise;
+}
+
+.progress-indicator:indeterminate > .spinner {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+}

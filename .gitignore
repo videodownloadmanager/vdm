@@ -1,0 +1,11 @@
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore global build output directory
+build
+
+# Ignore packager build output directory
+packager/build
+
+# Ignore vdm build output directory
+vdm/build
